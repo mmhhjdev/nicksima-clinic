@@ -16,6 +16,11 @@ interface AppointmentModalProps {
   initialServiceId?: string;
   onConsultationSubmitted?: () => void;
 }
+      
+
+
+
+
 
 export const AppointmentModal: React.FC<AppointmentModalProps> = ({
   isOpen,
