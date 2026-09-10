@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+/* 1. تعریف فونت‌های سفارشی برای Tailwind v4 */
+@theme {
+  --font-sans: 'Vazirmatn', system-ui, sans-serif;
+  --font-vazir: 'Vazirmatn', system-ui, sans-serif;
+  --font-brand: 'Noto Nastaliq Urdu', serif;
+  --font-header: 'Almarai', sans-serif;
+}
+
+/* 2. تنظیمات پایه HTML و Body */
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    scroll-behavior: smooth;
+    background-color: #FAF9F6;
+    color: #0F172A;
+  }
+}
+
+/* 3. استایل اسکرول‌بار اختصاصی */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F8FAFC;
+}
+::-webkit-scrollbar-thumb {
+  background: #1E3A8A;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #0284C7;
+}
+
+/* 4. اصلاح خودکار رنگ آیکون‌ها داخل دکمه‌های تیره (برای هماهنگی بصری) */
+button[class*="bg-[#1E3A8A]"] svg,
+button[class*="bg-[#0b1b3d]"] svg,
+button[class*="bg-blue-900"] svg,
+button[class*="bg-slate-900"] svg {
+  color: #7dd3fc !important; /* آبی یخی ملایم و هماهنگ */
+}

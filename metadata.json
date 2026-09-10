@@ -1,0 +1,6 @@
+{
+  "name": "کلینیک تخصصی پوست، مو و زیبایی پری سیما",
+  "description": "وب‌سایت مدرن و لوکس کلینیک تخصصی پوست، مو و زیبایی پری سیما، با حضور دکتر سید علی هجرتی و دکتر محمدجواد نخعی",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
