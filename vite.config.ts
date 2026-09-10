@@ -5,8 +5,8 @@ import { defineConfig } from 'vite';
 
 export default defineConfig(() => {
   return {
-    // چون نام ریپازیتوری nicksima-clinic است، base باید به این صورت تنظیم شود:
-    base: '/nicksima-clinic/', 
+    // چون دامنه اختصاصی روی ریشه تنظیم شده، base باید روی '/' باشد
+    base: '/', 
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
