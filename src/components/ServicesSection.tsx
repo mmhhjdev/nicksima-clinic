@@ -21,7 +21,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
         "name": service.title,
         "description": service.shortDescription,
         "procedureType": service.categoryLabel,
-        "url": `https://parisima-clinic.ir/#services`
+        "url": `https://nicksima.ir/#services`
       }))
     };
 
@@ -50,7 +50,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
             <span className="font-header">خدمات و متدهای درمانی</span>
           </div>
           <h2 className="font-header text-2xl sm:text-3xl font-black text-[#0F172A] tracking-tight">
-            خدمات تخصصی کلینیک پری سیما
+            خدمات تخصصی خانه درماتولوژی نیک سیما
           </h2>
           <p className="font-sans text-sm text-slate-500 mt-2">
             ارائه برترین خدمات زیبایی و درمانی با بالاترین کیفیت و متدهای روز دنیا
@@ -98,7 +98,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                         {service.categoryLabel}
                       </span>
                       <span className="font-sans text-[11px] text-slate-500 font-medium truncate">
-                        کلینیک پری سیما
+                        خانه درماتولوژی نیک سیما
                       </span>
                     </div>
 
