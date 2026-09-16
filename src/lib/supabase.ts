@@ -1,12 +1,12 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { Consultation } from '../types';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
+// استفاده از متغیرهای محیطی، و در صورت نبودن، استفاده مستقیم از مقادیر ثابت شما
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://zrdyxgctmgaytnxozpu.supabase.co';
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_BGVGg5fa_546MYM1neew_w_0C8d6DxR';
 
 export const isSupabaseConfigured = Boolean(
   supabaseUrl && 
-  supabaseAnonKey && 
   supabaseUrl !== 'https://your-project.supabase.co'
 );
 
@@ -74,7 +74,7 @@ export async function fetchConsultations(): Promise<{ data: Consultation[]; isLi
 }
 
 /**
- * ثبت نوبت جدید با پرتاب خطای واقعی (بدون مخفی کردن خطا)
+ * ثبت نوبت جدید با پرتاب خطای واقعی
  */
 export async function submitConsultation(entry: {
   patient_name: string;
@@ -105,7 +105,6 @@ export async function submitConsultation(entry: {
 
     if (error) {
       console.error('🔴 SUPABASE INSERT ERROR:', error);
-      // برای اینکه خطای واقعی در فرم ظاهر شود و بدانیم مشکل کجاست:
       throw new Error(`خطای پایگاه داده: ${error.message} (کد: ${error.code})`);
     }
 
@@ -113,7 +112,6 @@ export async function submitConsultation(entry: {
     return { success: true, id: data?.[0]?.id || trackingId, isLiveSupabase: true };
   }
 
-  // اگر سه‌پابیس تنظیم نشده بود روی لوکال ذخیره کن
   const localList = getLocalConsultations();
   saveLocalConsultations([newRecord, ...localList]);
   return { success: true, id: trackingId, isLiveSupabase: false };
