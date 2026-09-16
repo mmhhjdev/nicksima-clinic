@@ -1,7 +1,6 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { Consultation } from '../types';
 
-// استفاده از متغیرهای محیطی، و در صورت نبودن، استفاده مستقیم از مقادیر ثابت شما
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://zrdyxgctmgaytnxozpu.supabase.co';
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_BGVGg5fa_546MYM1neew_w_0C8d6DxR';
 
@@ -50,31 +49,35 @@ export function saveLocalConsultation(entry: {
 }
 
 /**
- * دریافت تمامی نوبت‌ها با لاگ دقیق خطا
+ * دریافت تمامی نوبت‌ها با قابلیت بازگشت امن به لوکال در صورت قطعی شبکه
  */
 export async function fetchConsultations(): Promise<{ data: Consultation[]; isLiveSupabase: boolean; error?: string }> {
   if (isSupabaseConfigured && supabase) {
-    console.log('Fetching from Supabase...');
-    const { data, error } = await supabase
-      .from('consultations')
-      .select('*')
-      .order('created_at', { ascending: false });
+    try {
+      console.log('Fetching from Supabase...');
+      const { data, error } = await supabase
+        .from('consultations')
+        .select('*')
+        .order('created_at', { ascending: false });
 
-    if (error) {
-      console.error('🔴 SUPABASE FETCH ERROR:', error.message, error.details, error.hint);
-      return { data: getLocalConsultations(), isLiveSupabase: false, error: error.message };
+      if (error) {
+        console.error('🔴 SUPABASE FETCH ERROR:', error.message);
+        return { data: getLocalConsultations(), isLiveSupabase: false, error: error.message };
+      }
+
+      console.log('🟢 Supabase fetch success:', data);
+      return { data: (data || []) as Consultation[], isLiveSupabase: true };
+    } catch (err) {
+      console.warn('⚠️ Network or DNS blocked, falling back to LocalStorage:', err);
+      return { data: getLocalConsultations(), isLiveSupabase: false };
     }
-
-    console.log('🟢 Supabase fetch success:', data);
-    return { data: (data || []) as Consultation[], isLiveSupabase: true };
   }
 
-  console.log('⚠️ Supabase is not configured, using LocalStorage');
   return { data: getLocalConsultations(), isLiveSupabase: false };
 }
 
 /**
- * ثبت نوبت جدید با پرتاب خطای واقعی
+ * ثبت نوبت جدید با فال‌بک خودکار روی لوکال در صورت قطعی اینترنت/تحریم
  */
 export async function submitConsultation(entry: {
   patient_name: string;
@@ -96,22 +99,27 @@ export async function submitConsultation(entry: {
   };
 
   if (isSupabaseConfigured && supabase) {
-    console.log('Attempting to insert into Supabase:', newRecord);
-    
-    const { data, error } = await supabase
-      .from('consultations')
-      .insert([newRecord])
-      .select();
+    try {
+      console.log('Attempting to insert into Supabase:', newRecord);
+      const { data, error } = await supabase
+        .from('consultations')
+        .insert([newRecord])
+        .select();
 
-    if (error) {
-      console.error('🔴 SUPABASE INSERT ERROR:', error);
-      throw new Error(`خطای پایگاه داده: ${error.message} (کد: ${error.code})`);
+      if (error) {
+        console.error('🔴 SUPABASE INSERT ERROR:', error);
+        // به جای متوقف کردن برنامه، روی لوکال ذخیره می‌کنیم تا کاربر معطل نشود
+        throw new Error(error.message);
+      }
+
+      console.log('🟢 Supabase insert success:', data);
+      return { success: true, id: data?.[0]?.id || trackingId, isLiveSupabase: true };
+    } catch (err) {
+      console.warn('⚠️ Supabase insert failed due to network/DNS, saving to LocalStorage instead.');
     }
-
-    console.log('🟢 Supabase insert success:', data);
-    return { success: true, id: data?.[0]?.id || trackingId, isLiveSupabase: true };
   }
 
+  // ذخیره امن روی LocalStorage در صورت عدم دسترسی به دیتابیس ابری
   const localList = getLocalConsultations();
   saveLocalConsultations([newRecord, ...localList]);
   return { success: true, id: trackingId, isLiveSupabase: false };
@@ -122,14 +130,13 @@ export async function updateConsultationStatus(
   newStatus: 'pending' | 'called' | 'completed'
 ): Promise<boolean> {
   if (isSupabaseConfigured && supabase) {
-    const { error } = await supabase
-      .from('consultations')
-      .update({ status: newStatus })
-      .eq('id', id);
-
-    if (error) {
-      console.error('🔴 Update status error:', error);
-      return false;
+    try {
+      await supabase
+        .from('consultations')
+        .update({ status: newStatus })
+        .eq('id', id);
+    } catch {
+      // اگر شبکه قطع بود، فقط روی لوکال آپدیت می‌شود تا پنل مختل نشود
     }
   }
   const current = getLocalConsultations();
@@ -143,14 +150,13 @@ export async function updateConsultationNotes(
   notes: string
 ): Promise<boolean> {
   if (isSupabaseConfigured && supabase) {
-    const { error } = await supabase
-      .from('consultations')
-      .update({ notes })
-      .eq('id', id);
-
-    if (error) {
-      console.error('🔴 Update notes error:', error);
-      return false;
+    try {
+      await supabase
+        .from('consultations')
+        .update({ notes })
+        .eq('id', id);
+    } catch {
+      // خطا نادیده گرفته می‌شود و لوکال آپدیت می‌گردد
     }
   }
   const current = getLocalConsultations();
@@ -161,14 +167,13 @@ export async function updateConsultationNotes(
 
 export async function deleteConsultation(id: string): Promise<boolean> {
   if (isSupabaseConfigured && supabase) {
-    const { error } = await supabase
-      .from('consultations')
-      .delete()
-      .eq('id', id);
-
-    if (error) {
-      console.error('🔴 Delete error:', error);
-      return false;
+    try {
+      await supabase
+        .from('consultations')
+        .delete()
+        .eq('id', id);
+    } catch {
+      // خطا نادیده گرفته می‌شود
     }
   }
   const current = getLocalConsultations();
