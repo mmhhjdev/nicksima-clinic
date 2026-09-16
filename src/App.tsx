@@ -12,6 +12,7 @@ import { AppointmentModal } from './components/AppointmentModal';
 import { AdminPanel } from './components/AdminPanel';
 import { Service } from './types';
 import { fetchConsultations } from './lib/supabase';
+import { getMasterClinicSchema } from './data/clinicSchema'; // ایمپورت اسکیما
 
 export function App() {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
@@ -19,6 +20,21 @@ export function App() {
   
   const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [pendingCount, setPendingCount] = useState(0);
+
+  // تزریق خودکار اسکیمای سئو به هدر سایت هنگام لود
+  useEffect(() => {
+    const scriptId = 'master-clinic-schema';
+    let scriptTag = document.getElementById(scriptId) as HTMLScriptElement | null;
+    
+    if (!scriptTag) {
+      scriptTag = document.createElement('script');
+      scriptTag.id = scriptId;
+      scriptTag.type = 'application/ld+json';
+      document.head.appendChild(scriptTag);
+    }
+    
+    scriptTag.textContent = JSON.stringify(getMasterClinicSchema(), null, 2);
+  }, []);
 
   // محاسبه تعداد درخواست‌های در انتظار مستقیماً از Supabase
   const refreshPendingCount = useCallback(async () => {
