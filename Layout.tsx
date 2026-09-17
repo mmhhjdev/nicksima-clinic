@@ -6,9 +6,9 @@ export const ClinicSchemaMarkup = () => {
     "@graph": [
       {
         "@type": "MedicalClinic",
-        "@id": "https://parisima-clinic.ir/#clinic",
+        "@id": "https://nicksima.ir/#clinic",
         "name": "کلینیک زیبایی و درماتولوژی پری سیما",
-        "url": "https://parisima-clinic.ir",
+        "url": "https://nicksima.ir",
         "telephone": "02122753592",
         "priceRange": "$$",
         "address": {
