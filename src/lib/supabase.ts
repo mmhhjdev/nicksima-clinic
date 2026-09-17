@@ -1,7 +1,8 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { Consultation } from '../types';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://zrdyxgctmgaytnxozpu.supabase.co';
+// اصلاح آدرس URL با افزودن حرف g درست در بخش ساب‌دامین
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://zrdyxgctmgaygtnxozpu.supabase.co';
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_BGVGg5fa_546MYM1neew_w_0C8d6DxR';
 
 export const supabase: SupabaseClient = createClient(supabaseUrl, supabaseAnonKey);
@@ -111,7 +112,6 @@ export async function updateConsultationNotes(
   }
   return true;
 }
-   
 
 export async function deleteConsultation(id: string): Promise<boolean> {
   const { error } = await supabase
