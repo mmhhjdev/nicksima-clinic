@@ -39,6 +39,7 @@ export async function submitConsultation(entry: {
   notes?: string;
 }): Promise<{ success: boolean; id: string; isLiveSupabase: boolean; error?: string }> {
   const newRecord = {
+    id: crypto.randomUUID(), // تولید شناسه یکتا برای ستون متنی id
     patient_name: entry.patient_name.trim(),
     phone: entry.phone.trim(),
     doctor_name: entry.doctor_name,
