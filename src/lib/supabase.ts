@@ -1,9 +1,8 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { Consultation } from '../types';
 
-// اصلاح آدرس URL با افزودن حرف g درست در بخش ساب‌دامین
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://zrdyxgctmgaygtnxozpu.supabase.co';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_BGVGg5fa_546MYM1neew_w_0C8d6DxR';
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_BGVGg5fa_546MYMlneew_w_0C8d6DxR';
 
 export const supabase: SupabaseClient = createClient(supabaseUrl, supabaseAnonKey);
 
@@ -40,7 +39,7 @@ export async function submitConsultation(entry: {
   notes?: string;
 }): Promise<{ success: boolean; id: string; isLiveSupabase: boolean; error?: string }> {
   const newRecord = {
-    id: crypto.randomUUID(), // تولید شناسه یکتا برای ستون متنی id
+    id: crypto.randomUUID(),
     patient_name: entry.patient_name.trim(),
     phone: entry.phone.trim(),
     doctor_name: entry.doctor_name,
