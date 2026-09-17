@@ -14,7 +14,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
       <div className="absolute inset-0 z-0">
         <img
           src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=1600"
-          alt="خانه درماتولوژی نیک سیما"
+          alt="خانه درماتولوژی نیک‌سیما - دکتر محمدجواد نخعی"
           className="w-full h-full object-cover object-center scale-105"
         />
         {/* Light Overlay to keep texts sharp and dark */}
@@ -30,20 +30,20 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
         <div className="flex justify-center mb-6">
           <div className="inline-flex items-center gap-2 bg-white px-4 py-1.5 rounded-full border border-[#BAE6FD] shadow-xs text-xs font-semibold text-[#0284C7] font-header">
             <Award className="w-3.5 h-3.5 text-[#0284C7]" />
-            <span>مرکز تخصصی پوست، مو و جوانسازی</span>
+            <span>بهترین کلینیک پوست و مو در زعفرانیه تهران | دکتر محمدجواد نخعی</span>
           </div>
         </div>
 
         {/* Hero Title & Subtitle */}
         <div className="text-center max-w-3xl mx-auto space-y-5">
           
-          {/* عنوان اصلی صفحه با فونت کاملاً یکپارچه و هماهنگ (Almarai) */}
+          {/* عنوان اصلی صفحه با نام دکتر محمدجواد نخعی */}
           <h1 className="font-header text-3xl sm:text-4xl lg:text-5xl font-black text-[#0F172A] tracking-tight leading-tight">
-            خانه درماتولوژی <span className="font-header font-black text-[#0284C7]">نیک سیما</span>
+            خانه درماتولوژی <span className="font-header font-black text-[#0284C7]">نیک‌سیما</span> | دکتر محمدجواد نخعی
           </h1>
 
           <p className="font-sans text-base sm:text-lg text-slate-600 font-normal leading-relaxed max-w-2xl mx-auto">
-            ارائه تخصصی‌ترین خدمات کاشت مو، مزوتراپی، جوانسازی پوست و فیشیال تخصصی با بهره‌گیری از بروزترین تجهیزات
+            ارائه تخصصی‌ترین خدمات کاشت مو، مزوتراپی، جوانسازی پوست و فیشیال تخصصی در زعفرانیه تهران زیر نظر دکتر محمدجواد نخعی
           </p>
 
           {/* Primary Action Buttons */}
@@ -68,7 +68,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
           {/* Clinic Address Direct Line */}
           <div className="pt-2 flex items-center justify-center gap-2 text-xs text-slate-500 font-sans">
             <MapPin className="w-3.5 h-3.5 text-[#0284C7]" />
-            <span>تهران، سه راه زعفرانیه، ساختمان پزشکان زعفرانیه، طبقه 2 ، واحد 7</span>
+            <span>تهران، سه راه زعفرانیه، ساختمان پزشکان زعفرانیه، طبقه ۲، واحد ۷</span>
           </div>
         </div>
 
@@ -80,7 +80,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
           </div>
           <div className="flex items-center justify-center gap-2 bg-white/90 backdrop-blur-xs py-2.5 px-4 rounded-xl border border-slate-200 shadow-xs">
             <Award className="w-4 h-4 text-[#0284C7]" />
-            <span>کادر درمانی متخصص</span>
+            <span>مدیریت: دکتر محمدجواد نخعی</span>
           </div>
           <div className="col-span-2 md:col-span-1 flex items-center justify-center gap-2 bg-white/90 backdrop-blur-xs py-2.5 px-4 rounded-xl border border-slate-200 shadow-xs">
             <MessageSquare className="w-4 h-4 text-[#0284C7]" />

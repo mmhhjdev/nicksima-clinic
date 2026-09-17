@@ -21,7 +21,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
             <Logo size="md" textColor="light" />
 
             <p className="font-sans text-xs text-slate-400 leading-relaxed font-light mt-3">
-              خانه درماتولوژی نیک سیما با بهره‌مندی از تجارب تخصصی دکتر سید علی هجرتی (کد نظام پزشکی: 42171) و دکتر محمدجواد نخعی (کد نظام پزشکی: 83525)، محیطی علمی، ایمن و پیشرفته برای درمان‌های پوستی و زیبایی فراهم آورده است.
+              خانه درماتولوژی نیک سیما با بهره‌مندی از تجارب تخصصی دکتر محمدجواد نخعی (کد نظام پزشکی: 83525) و دکتر سید علی هجرتی (کد نظام پزشکی: 42771)، محیطی علمی، ایمن و پیشرفته برای درمان‌های پوستی و زیبایی فراهم آورده است.
             </p>
 
             {/* عبارت بدون آیکون و با متن جدید */}
@@ -37,7 +37,6 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
             </h4>
             <ul className="font-sans space-y-2 text-xs text-slate-400 font-light">
               <li><a href="#home" className="hover:text-[#38BDF8] transition-colors">صفحه اصلی</a></li>
-              <li><a href="#doctors" className="hover:text-[#38BDF8] transition-colors">معرفی پزشکان متخصص</a></li>
               <li><a href="#services" className="hover:text-[#38BDF8] transition-colors">لیست خدمات درمانی</a></li>
               <li><a href="#faq" className="hover:text-[#38BDF8] transition-colors">پرسش‌های متداول</a></li>
               <li><a href="#contact" className="hover:text-[#38BDF8] transition-colors">آدرس و تلفن‌های مطب</a></li>
@@ -90,10 +89,10 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
         {/* Bottom Copyright */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 text-center sm:text-right font-light font-sans">
           <div>
-              تمام حقوق متعلق به <strong className="text-slate-400 font-bold">خانه درماتولوژی نیک سیما</strong> می‌باشد.
+            تمام حقوق متعلق به <strong className="text-slate-400 font-bold">خانه درماتولوژی نیک سیما</strong> می‌باشد.
           </div>
           <div className="text-slate-500 text-[11px]">
-            دکتر سید علی هجرتی (کد: 42171) &bull; دکتر محمدجواد نخعی (کد: 83525)
+            دکتر محمدجواد نخعی (کد: 83525) &bull; دکتر سید علی هجرتی (کد: 42771)
           </div>
         </div>
 
