@@ -111,6 +111,7 @@ export async function updateConsultationNotes(
   }
   return true;
 }
+   
 
 export async function deleteConsultation(id: string): Promise<boolean> {
   const { error } = await supabase
